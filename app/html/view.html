@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -18,9 +18,34 @@
             <a class="btn btn-primary btn-lg" href="make" role="button">Make reservation</a>
         </p>
     </div>
-    <div class="container" id="tables" style="border:solid grey; width:95%; height:400px; width:400px;">Tables</div>
-    <div class=" container" id="wait" style="border:solid grey; width:95%; height:400px; width:400px;"> Waiting list
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class=panel-title>Waiting List</h4>
+        </div>
+        <div class="panel-body" id="waitlistSection">
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class=panel-title>Waiting List</h4>
+        </div>
+        <div class="panel-body" id="tableSection">
+        </div>
     </div>
 </body>
+
+<script type="text/javascript">
+    function runtableQuery() {
+        var currentURL = window.location.origin;
+        $.ajax({ url: currentURL + "/api/tables", method: "GET" })
+            .done(function (tableData) {
+                console.log("URL: " + currentURL + "/api/tables")
+                console.log(tableData);
+            });
+
+
+    }
+    runtableQuery();
+</script>
 
 </html>
