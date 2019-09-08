@@ -18,18 +18,22 @@
             <a class="btn btn-primary btn-lg" href="make" role="button">Make reservation</a>
         </p>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class=panel-title>Waiting List</h4>
-        </div>
-        <div class="panel-body" id="waitlistSection">
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class=panel-title>Waiting List</h4>
-        </div>
-        <div class="panel-body" id="tableSection">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class=panel-title>Current reservations</h4>
+                </div>
+                <div class="panel-body" id="waitlistSection">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class=panel-title>Waiting List</h4>
+                </div>
+                <div class="panel-body" id="tableSection">
+                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -41,10 +45,20 @@
             .done(function (tableData) {
                 console.log("URL: " + currentURL + "/api/tables")
                 console.log(tableData);
-            });
 
-
+                for (var i = 0; i < tableData.length; i++) {
+                    console.log(tableData[i]);
+                    var tableSection = $("<div>");
+                    tableSection.addClass('well');
+                    tableSection.attr('id', 'tableWell-' + i + 1);
+                    $("#tableSection").append(tableSection);
+                    var tableNumber = i + 1;
+                    $("#tableWell-" + i + 1).append('<h2><span class="label label-primary">' +
+                        tableNumber + "</span> | " + tableData[i].customerID + "</h2>");
+                }
+            })
     }
+
     runtableQuery();
 </script>
 
