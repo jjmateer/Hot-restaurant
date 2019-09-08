@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 
@@ -21,29 +22,57 @@
     <form>
         <div class="form-group">
             <label for="exampleInputEmail1">Name</label>
-            <input type="input" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                placeholder="Enter email"> </div>
+            <input type="input" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Phone Number</label>
-            <input type="input" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="input" class="form-control" id="phone" placeholder="Password">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Email</label>
-            <input type="input" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="input" class="form-control" id="email" placeholder="Password">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Unique ID</label>
-            <input type="input" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="input" class="form-control" id="UID" placeholder="Password">
         </div>
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
     </form>
     <btn>API Table Link</btn>
     <btn>API Wait List</btn>
     <btn>Github Repo</btn>
 </body>
+<script type="text/javascript">
+    $("#submit").on("click", function () {
+        var newReservation = {
+            customerName: $('#name').val().trim(),
+            phoneNumber: $('#phone').val().trim(),
+            customerEmail: $('#email').val().trim(),
+            customerID: $('#UID').val().trim(),
+        }
+        console.log(newReservation)
+
+        var currentURL = window.location.origin;
+
+        $.post(currentURL + "/api/tables", newReservation, function (data) {
+            if (data === true) {
+                alert('booked')
+            }
+            if (data === false) {
+                alert('full')
+            }
+            $("#name").val("");
+            $("phone").val("");
+            $("#email").val("");
+            $("UID").val("");
+        });
+        return false;
+
+    });
+</script>
 
 </html>
